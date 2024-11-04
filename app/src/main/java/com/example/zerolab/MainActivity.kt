@@ -10,8 +10,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.work.PeriodicWorkRequest
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.example.zerolab.ui.theme.ZeroLabTheme
+import java.util.concurrent.TimeUnit
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,12 +24,17 @@ class MainActivity : ComponentActivity() {
             ZeroLabTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
-                        name = "Android",
+                        name = "User",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
             }
         }
+        val workRequest: PeriodicWorkRequest = PeriodicWorkRequestBuilder<NotificationWorker>(
+            24, TimeUnit.HOURS,
+            30, TimeUnit.MINUTES)
+            .build()
+        WorkManager.getInstance(this).enqueue(workRequest)
     }
 }
 
@@ -36,12 +44,4 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         text = "Hello $name!",
         modifier = modifier
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ZeroLabTheme {
-        Greeting("Android")
-    }
 }
