@@ -16,7 +16,6 @@ class NotificationWorker(appContext: Context, workerParams: WorkerParameters) :
     Worker(appContext, workerParams) {
     override fun doWork(): Result {
         sendNotification(applicationContext)
-        Log.d("worker", "DO DOD OD OD OD OD ODOD O DO DO DODO")
         return Result.success()
     }
     private fun sendNotification(context: Context) {
