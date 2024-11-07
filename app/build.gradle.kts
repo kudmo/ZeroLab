@@ -50,6 +50,9 @@ android {
 }
 
 dependencies {
+    val work_wersion = "2.5.0"
+    implementation("androidx.work:work-runtime:$work_wersion")
+    implementation("androidx.work:work-runtime-ktx:$work_wersion")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
